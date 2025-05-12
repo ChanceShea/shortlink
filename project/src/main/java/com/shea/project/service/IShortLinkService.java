@@ -6,7 +6,10 @@ import com.shea.project.dao.entity.ShortLinkDO;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
+import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -33,4 +36,12 @@ public interface IShortLinkService extends IService<ShortLinkDO> {
      * @return 短链接分页查询结果
      */
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO);
+
+    /**
+     * 短链接分组统计数量
+     *
+     * @param gids 分组标识集合
+     * @return 短链接分组统计数量集合
+     */
+    List<ShortLinkGroupCountQueryDTO> groupShortLinkCount(List<String> gids);
 }

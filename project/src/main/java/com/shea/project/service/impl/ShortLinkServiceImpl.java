@@ -2,6 +2,7 @@ package com.shea.project.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,6 +12,7 @@ import com.shea.project.dao.mapper.IShortLinkMapper;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
+import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
 import com.shea.project.toolkit.HashUtil;
@@ -19,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -79,6 +84,17 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 .orderByDesc(ShortLinkDO::getCreateTime);
         IPage<ShortLinkDO> resultPage = baseMapper.selectPage(shortLinkPageReqDTO, wrapper);
         return resultPage.convert(one -> BeanUtil.toBean(one, ShortLinkPageRespDTO.class));
+    }
+
+    @Override
+    public List<ShortLinkGroupCountQueryDTO> groupShortLinkCount(List<String> gids) {
+        QueryWrapper<ShortLinkDO> wrapper = Wrappers.query(new ShortLinkDO())
+                .select("gid as gid,count(*) as count")
+                .in("gid", gids)
+                .eq("enable_status", 0)
+                .groupBy("gid");
+        List<Map<String, Object>> shortLinkCount = baseMapper.selectMaps(wrapper);
+        return BeanUtil.copyToList(shortLinkCount, ShortLinkGroupCountQueryDTO.class);
     }
 
     public String generateSuffix(ShortLinkCreateReqDTO shortLinkCreateReqDTO) {

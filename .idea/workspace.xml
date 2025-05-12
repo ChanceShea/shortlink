@@ -5,7 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="短链接分页查询功能">
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/ShortLinkController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/ShortLinkCreateReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/ShortLinkPageReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/resp/ShortLinkCreateRespDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/resp/ShortLinkPageRespDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/common/constants/RedisKeyConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/RecycleBinController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/req/RecycleBinReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkGroupCountQueryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IRecycleBinService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dto/resp/GroupRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dto/resp/GroupRespDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/mapper/IShortLinkService.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/mapper/IRecycleBinService.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/shardingsphere-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/shardingsphere-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/test/java/com/shea/admin/test/UserTableShardingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/test/java/com/shea/admin/test/UserTableShardingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/biz/user/UserTransmitFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/biz/user/UserTransmitFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/convention/result/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/convention/result/Result.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/dto/resp/GroupRespDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/dto/resp/GroupRespDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/shardingsphere-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/shardingsphere-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/test-classes/com/shea/admin/test/UserTableShardingTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/test-classes/com/shea/admin/test/UserTableShardingTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/ShortLinkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/ShortLinkController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/entity/ShortLinkDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/entity/ShortLinkDO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/mapper/IShortLinkMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/mapper/IShortLinkMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkPageRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkPageRespDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IShortLinkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IShortLinkService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/entity/ShortLinkDO.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/entity/ShortLinkDO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/mapper/IShortLinkMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/mapper/IShortLinkMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/resp/ShortLinkPageRespDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/resp/ShortLinkPageRespDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/IShortLinkService.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/IShortLinkService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +54,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -47,6 +82,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ChanceShea&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChanceShea/shortlink.git&quot;,
+    &quot;accountId&quot;: &quot;ee939643-67ab-4e90-aa67-8fa3c92a7829&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -55,9 +102,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2wtRUmwkRx7VdIkqJBRyAyG5gNt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -65,42 +112,46 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.shortlink [install].executor": "Run",
-    "Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ShortLinkAdminApplication.executor": "Debug",
-    "Spring Boot.ShortLinkApplication.executor": "Debug",
-    "Spring Boot.ShortlinkApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JAVA/shortlink/project/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true",
-    "应用程序.LinkShardingSphereTest.executor": "Run",
-    "应用程序.RandomStringTest.executor": "Run",
-    "应用程序.UserTableShardingTest.executor": "Debug"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.shortlink [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ShortLinkAdminApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShortLinkApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShortlinkApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/shortlink/admin/src/main/java/com/shea/admin/remote/dto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.LinkShardingSphereTest.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.RandomStringTest.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.UserTableShardingTest.executor&quot;: &quot;Debug&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.shea.project.service" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JAVA\shortlink\admin\src\main\java\com\shea\admin\remote\dto" />
       <recent name="E:\JAVA\shortlink\project\src\main\resources" />
       <recent name="E:\JAVA\shortlink\project\src\main\java\com\shea\project\common" />
     </key>
@@ -108,6 +159,8 @@
       <recent name="com.shea.project.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.shea.admin.remote" />
+      <recent name="com.shea.admin.controller" />
       <recent name="com.shea.admin.common.config" />
       <recent name="com.shea.project.common.config" />
       <recent name="com.shea.project.dto.resp" />
@@ -120,7 +173,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ShortLinkApplication">
+  <component name="RunManager" selected="应用程序.UserTableShardingTest">
     <configuration name="RandomStringTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.shea.admin.test.RandomStringTest" />
       <module name="shortlink-admin" />
@@ -183,8 +236,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.RandomStringTest" />
         <item itemvalue="应用程序.UserTableShardingTest" />
+        <item itemvalue="应用程序.RandomStringTest" />
       </list>
     </recent_temporary>
   </component>
@@ -212,7 +265,9 @@
       <workItem from="1746970074277" duration="4168000" />
       <workItem from="1747010114048" duration="445000" />
       <workItem from="1747010579406" duration="3263000" />
-      <workItem from="1747013885555" duration="6413000" />
+      <workItem from="1747013885555" duration="14753000" />
+      <workItem from="1747057651870" duration="1000000" />
+      <workItem from="1747058665752" duration="3454000" />
     </task>
     <task id="LOCAL-00001" summary="短链接中台系统部分代码开发">
       <option name="closed" value="true" />
@@ -270,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747034724560</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="短链接分页查询功能">
+      <option name="closed" value="true" />
+      <created>1747035111302</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747035111302</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

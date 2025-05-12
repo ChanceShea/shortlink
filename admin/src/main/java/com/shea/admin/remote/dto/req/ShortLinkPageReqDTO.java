@@ -1,0 +1,18 @@
+package com.shea.admin.remote.dto.req;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.Data;
+
+/**
+ * @description: 短链接分页请求参数
+ * @Author: Shea.
+ * @Date: 2025/5/12 14:15
+ */
+@Data
+public class ShortLinkPageReqDTO extends Page {
+
+    /**
+     * 分组标识
+     */
+    private String gid;
+}

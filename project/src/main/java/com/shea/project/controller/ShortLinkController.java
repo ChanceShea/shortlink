@@ -7,13 +7,13 @@ import com.shea.project.common.convention.result.Results;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
+import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 短链接控制器
@@ -42,4 +42,13 @@ public class ShortLinkController {
     public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO) {
         return Results.success(shortLinkService.pageShortLink(shortLinkPageReqDTO));
     }
+
+    /**
+     * 短链接分组统计数量
+     */
+    @GetMapping("/api/short-link/v1/count")
+    public Result<List<ShortLinkGroupCountQueryDTO>> groupShortLinkCount(@RequestParam("gids") List<String> gids) {
+        return Results.success(shortLinkService.groupShortLinkCount(gids));
+    }
+
 }

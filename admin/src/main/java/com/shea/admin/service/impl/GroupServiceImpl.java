@@ -39,6 +39,7 @@ public class GroupServiceImpl extends ServiceImpl<TGroupMapper, GroupDO> impleme
         GroupDO groupDO = GroupDO.builder()
                 .gid(gid) // 生成随机的GID
                 .name(groupName)
+                .username(UserContext.getUsername())
                 .sortOrder(0)
                 .build();
         save(groupDO);
