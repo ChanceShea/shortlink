@@ -2,13 +2,16 @@ package com.shea.project.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shea.project.common.convention.exception.ClientException;
 import com.shea.project.dao.entity.ShortLinkDO;
 import com.shea.project.dao.mapper.IShortLinkMapper;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
+import com.shea.project.dto.req.ShortLinkPageReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
+import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
 import com.shea.project.toolkit.HashUtil;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +68,16 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 .originUrl(shortLinkDO.getOriginUrl())
                 .gid(shortLinkDO.getGid())
                 .build();
+    }
+
+    @Override
+    public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO) {
+        LambdaQueryWrapper<ShortLinkDO> wrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, shortLinkPageReqDTO.getGid())
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .eq(ShortLinkDO::getEnableStatus, 0);
+        IPage<ShortLinkDO> resultPage = baseMapper.selectPage(shortLinkPageReqDTO, wrapper);
+        return resultPage.convert(one -> BeanUtil.toBean(one, ShortLinkPageRespDTO.class));
     }
 
     public String generateSuffix(ShortLinkCreateReqDTO shortLinkCreateReqDTO) {

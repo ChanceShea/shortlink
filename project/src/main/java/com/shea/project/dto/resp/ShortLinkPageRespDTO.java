@@ -1,31 +1,18 @@
-package com.shea.project.dao.entity;
+package com.shea.project.dto.resp;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.shea.project.common.database.BaseDO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- *
- * </p>
- *
- * @author Shea
- * @since 2025-05-11
+ * @description: 短链接分页返回对象
+ * @Author: Shea.
+ * @Date: 2025/5/12 14:16
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("t_link")
-public class ShortLinkDO extends BaseDO implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class ShortLinkPageRespDTO {
 
     /**
      * ID
@@ -54,24 +41,9 @@ public class ShortLinkDO extends BaseDO implements Serializable {
     private String originUrl;
 
     /**
-     * 点击量
-     */
-    private Integer clickNum;
-
-    /**
      * 分组标识
      */
     private String gid;
-
-    /**
-     * 启用标识：0：启用  1：未启用
-     */
-    private Integer enableStatus;
-
-    /**
-     * 创建类型：0：接口创建  1：控制台创建
-     */
-    private Integer createdType;
 
     /**
      * 有效期类型：0：永久  1：自定义
