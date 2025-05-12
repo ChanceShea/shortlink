@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="admin" uuid="79ba1018-a7b7-4a30-9562-d20a4edcfc86">
+      <imported>true</imported>
+      <configured-by-url>true</configured-by-url>
+      <remarks>$PROJECT_DIR$/admin/src/main/resources/application.yml</remarks>
+      <jdbc-driver>org.apache.shardingsphere.driver.ShardingSphereDriver</jdbc-driver>
+      <jdbc-url>jdbc:shardingsphere:classpath:shardingsphere-config.yaml</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="mysql" uuid="86fd1b0e-7df4-46b6-8890-13a833e83ab5">
+      <imported>true</imported>
+      <configured-by-url>true</configured-by-url>
+      <remarks>$PROJECT_DIR$/project/src/main/resources/application.yml</remarks>
+      <jdbc-driver>org.apache.shardingsphere.driver.ShardingSphereDriver</jdbc-driver>
+      <jdbc-url>jdbc:shardingsphere:classpath:shardingsphere-config.yaml</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="1@192.168.100.104" uuid="7eeae1f4-3735-4265-b702-0537b37d6ce0">
+      <driver-ref>redis</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/project/src/main/resources/application.yml</remarks>
+      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
+      <jdbc-url>jdbc:redis://192.168.100.104:6379/1</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="1@192.168.100.104" uuid="50f936f9-395f-429a-996b-57bb78f7ce38">
+      <driver-ref>redis</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/admin/src/main/resources/application.yml</remarks>
+      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
+      <jdbc-url>jdbc:redis://192.168.100.104:6379/1</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="com.intellij.clouds.kubernetes.db.host.port" />
+        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
+        <property name="com.intellij.clouds.kubernetes.db.resource.type" value="Deployment" />
+        <property name="com.intellij.clouds.kubernetes.db.container.port" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
