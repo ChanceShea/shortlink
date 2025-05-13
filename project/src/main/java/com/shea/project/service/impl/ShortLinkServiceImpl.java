@@ -21,6 +21,7 @@ import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
 import com.shea.project.toolkit.HashUtil;
+import com.shea.project.toolkit.ShortLinkUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import static com.shea.project.common.constants.RedisKeyConstant.*;
 import static com.shea.project.common.enums.ValidDateTypeEnums.PERMANENT;
@@ -87,6 +90,11 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 throw new ClientException("短链接已存在");
             }
         }
+        stringRedisTemplate.opsForValue()
+                .set(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl),
+                        shortLinkCreateReqDTO.getOriginUrl(),
+                        ShortLinkUtil.getLinkCacheValidTime(shortLinkCreateReqDTO.getValidDate()),
+                        TimeUnit.MILLISECONDS);
         rBloomFilter.add(fullShortUrl);
         return ShortLinkCreateRespDTO.builder()
                 .fullShortUrl(shortLinkCreateReqDTO.getDomainProtocol() + shortLinkDO.getFullShortUrl())
@@ -190,7 +198,9 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 return;
             }
             if (shortLinkGotoDO == null) {
-                stringRedisTemplate.opsForValue().set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl), "-");
+                stringRedisTemplate.opsForValue()
+                        .set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl),
+                                "-", 2, TimeUnit.MINUTES);
                 return;
             }
             LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
@@ -200,7 +210,18 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                     .eq(ShortLinkDO::getEnableStatus, 0);
             ShortLinkDO shortLinkDO = baseMapper.selectOne(queryWrapper);
             if (shortLinkDO != null) {
-                stringRedisTemplate.opsForValue().set(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl), shortLinkDO.getOriginUrl());
+                if (shortLinkDO.getValidDate() != null && shortLinkDO.getValidDate().before(new Date())) {
+                    //如果短链接有效期过期，则直接在redis中缓存空值
+                    stringRedisTemplate.opsForValue()
+                            .set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl),
+                                    "-", 2, TimeUnit.MINUTES);
+                    return;
+                }
+                stringRedisTemplate.opsForValue()
+                        .set(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl),
+                                shortLinkDO.getOriginUrl(),
+                                ShortLinkUtil.getLinkCacheValidTime(shortLinkDO.getValidDate()),
+                                TimeUnit.MILLISECONDS);
                 response.sendRedirect(shortLinkDO.getOriginUrl());
             }
         } finally {
