@@ -4,43 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="短链接分页查询功能">
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/ShortLinkController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/ShortLinkCreateReqDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/ShortLinkPageReqDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/resp/ShortLinkCreateRespDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/resp/ShortLinkPageRespDTO.java" afterDir="false" />
+    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="短链接后管调用中台相关接口">
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/resp/ShortLinkGroupCountRespDTO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/common/constants/RedisKeyConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/RecycleBinController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/req/RecycleBinReqDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkGroupCountQueryDTO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IRecycleBinService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/GroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/GroupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dto/resp/GroupRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dto/resp/GroupRespDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/src/main/resources/mapper/IShortLinkService.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/mapper/IRecycleBinService.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/shardingsphere-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/shardingsphere-config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/test/java/com/shea/admin/test/UserTableShardingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/test/java/com/shea/admin/test/UserTableShardingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/biz/user/UserTransmitFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/biz/user/UserTransmitFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/convention/result/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/common/convention/result/Result.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/dto/resp/GroupRespDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/dto/resp/GroupRespDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/mapper/IShortLinkService.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/target/classes/shardingsphere-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/shardingsphere-config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/target/test-classes/com/shea/admin/test/UserTableShardingTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/test-classes/com/shea/admin/test/UserTableShardingTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/ShortLinkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/ShortLinkController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/entity/ShortLinkDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/entity/ShortLinkDO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/mapper/IShortLinkMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dao/mapper/IShortLinkMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkPageRespDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/resp/ShortLinkPageRespDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IShortLinkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IShortLinkService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/entity/ShortLinkDO.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/entity/ShortLinkDO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/mapper/IShortLinkMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dao/mapper/IShortLinkMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/resp/ShortLinkPageRespDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/resp/ShortLinkPageRespDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/IShortLinkService.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/IShortLinkService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +246,9 @@
       <workItem from="1747010579406" duration="3263000" />
       <workItem from="1747013885555" duration="14753000" />
       <workItem from="1747057651870" duration="1000000" />
-      <workItem from="1747058665752" duration="3454000" />
+      <workItem from="1747058665752" duration="6243000" />
+      <workItem from="1747096163720" duration="11000" />
+      <workItem from="1747096987487" duration="2180000" />
     </task>
     <task id="LOCAL-00001" summary="短链接中台系统部分代码开发">
       <option name="closed" value="true" />
@@ -333,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747035111302</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="短链接后管调用中台相关接口">
+      <option name="closed" value="true" />
+      <created>1747063341833</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747063341833</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,9 +335,51 @@
     <MESSAGE value="短链接基础代码开发" />
     <MESSAGE value="MyBatisPlus分页插件" />
     <MESSAGE value="短链接分页查询功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="短链接分页查询功能" />
+    <MESSAGE value="短链接后管调用中台相关接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="短链接后管调用中台相关接口" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

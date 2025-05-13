@@ -6,16 +6,21 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shea.admin.common.biz.user.UserContext;
+import com.shea.admin.common.convention.result.Result;
 import com.shea.admin.dao.entity.GroupDO;
 import com.shea.admin.dao.mapper.TGroupMapper;
 import com.shea.admin.dto.req.GroupSortReqDTO;
 import com.shea.admin.dto.req.GroupUpdateReqDTO;
 import com.shea.admin.dto.resp.GroupRespDTO;
+import com.shea.admin.remote.ShortLinkRemoteService;
+import com.shea.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.shea.admin.service.GroupService;
 import com.shea.admin.toolkit.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * <p>
@@ -27,6 +32,10 @@ import java.util.List;
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<TGroupMapper, GroupDO> implements GroupService {
+
+    //TODO 后续重构为Spring Cloud Feign调用
+    ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {
+    };
 
     @Override
     public void saveGroup(String groupName) {
@@ -47,13 +56,43 @@ public class GroupServiceImpl extends ServiceImpl<TGroupMapper, GroupDO> impleme
 
     @Override
     public List<GroupRespDTO> listGroup() {
-        LambdaQueryWrapper<GroupDO> wrapper = Wrappers.lambdaQuery(GroupDO.class)
+        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
                 .eq(GroupDO::getDelFlag, 0)
                 .eq(GroupDO::getUsername, UserContext.getUsername())
-                .orderByDesc(GroupDO::getSortOrder, GroupDO::getCreateTime);
-        List<GroupDO> groupDOS = baseMapper.selectList(wrapper);
-        return BeanUtil.copyToList(groupDOS, GroupRespDTO.class);
+                .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
+        List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
+        Result<List<ShortLinkGroupCountRespDTO>> listResult = shortLinkRemoteService
+                .listGroupCount(groupDOList.stream().map(GroupDO::getGid).toList());
+        List<GroupRespDTO> shortLinkGroupRespDTOList = BeanUtil.copyToList(groupDOList, GroupRespDTO.class);
+        shortLinkGroupRespDTOList.forEach(each -> {
+            Optional<ShortLinkGroupCountRespDTO> first = listResult.getData().stream()
+                    .filter(item -> Objects.equals(item.getGid(), each.getGid()))
+                    .findFirst();
+            //TODO 未完成，明早记得
+            first.ifPresent(item -> each.setShortLinkCount(first.get().getCount()));
+        });
+        return shortLinkGroupRespDTOList;
     }
+
+//    @Override
+//    public List<GroupRespDTO> listGroup() {
+//        LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)
+//                .eq(GroupDO::getDelFlag, 0)
+//                .eq(GroupDO::getUsername, UserContext.getUsername())
+//                .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
+//        List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
+//        Result<List<ShortLinkGroupCountRespDTO>> listResult = shortLinkRemoteService
+//                .listGroupCount(groupDOList.stream().map(GroupDO::getGid).toList());
+//        List<GroupRespDTO> shortLinkGroupRespDTOList = BeanUtil.copyToList(groupDOList, GroupRespDTO.class);
+//        shortLinkGroupRespDTOList.forEach(each -> {
+//            Optional<ShortLinkGroupCountRespDTO> first = listResult.getData().stream()
+//                    .filter(item -> Objects.equals(item.getGid(), each.getGid()))
+//                    .findFirst();
+//            //TODO 未完成，明早记得
+//            first.ifPresent(item -> each.setShortLinkCount(first.get().getShortLinkCount()));
+//        });
+//        return shortLinkGroupRespDTOList;
+//    }
 
     @Override
     public void updateGroup(GroupUpdateReqDTO groupUpdateReqDTO) {

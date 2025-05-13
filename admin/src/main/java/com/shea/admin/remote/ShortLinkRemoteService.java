@@ -9,9 +9,11 @@ import com.shea.admin.common.convention.result.Result;
 import com.shea.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.shea.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkCreateRespDTO;
+import com.shea.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkPageRespDTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,5 +67,21 @@ public interface ShortLinkRemoteService {
         return JSON.parseObject(requestBody, new TypeReference<>() {
         });
 
+    }
+
+    /**
+     * 查询短链接分组中的短链接数量
+     *
+     * @param gids 短链接分组标识集合
+     * @return 短链接分组中的短链接数量集合
+     */
+    default Result<List<ShortLinkGroupCountRespDTO>> listGroupCount(List<String> gids) {
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("gids", gids);
+
+        String requestBody = HttpUtil.get("http://127.0.0.1:8081/api/short-link/v1/count"
+                , requestMap);
+        return JSON.parseObject(requestBody, new TypeReference<>() {
+        });
     }
 }
