@@ -7,6 +7,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.shea.admin.common.convention.result.Result;
+import com.shea.admin.remote.dto.req.RecycleBinReqDTO;
 import com.shea.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.shea.admin.remote.dto.req.ShortLinkPageReqDTO;
 import com.shea.admin.remote.dto.req.ShortLinkUpdateReqDTO;
@@ -109,6 +110,48 @@ public interface ShortLinkRemoteService {
     default String getUrlTitle(String url) {
         String resultStr = HttpUtil.get("http://127.0.0.1:8081/api/short-link/v1/title?url=" + url);
         return JSON.parseObject(resultStr, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * 将短链接移至回收站
+     *
+     * @param recycleBinReqDTO 回收站请求参数
+     */
+    default void saveRecycleBin(RecycleBinReqDTO recycleBinReqDTO) {
+        HttpUtil.post("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/save",
+                JSON.toJSONString(recycleBinReqDTO));
+    }
+
+
+    /**
+     * 分页查询回收站短链接
+     *
+     * @param shortLinkPageReqDTO 分页查询回收站短链接请求参数
+     * @return 分页查询回收站短链接响应参数
+     */
+    default Result<IPage<ShortLinkPageRespDTO>> pageRecycleShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO) {
+        Map<String, Object> requestMap = new HashMap<>();
+        requestMap.put("gid", shortLinkPageReqDTO.getGid());
+        requestMap.put("current", shortLinkPageReqDTO.getCurrent());
+        requestMap.put("size", shortLinkPageReqDTO.getSize());
+        String s = HttpRequest.get("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/page")
+                .form(requestMap) // 自动拼接到 query string
+                .execute()
+                .body();
+//        Map map = JSON.parseObject(s, Map.class);
+//        Map<String, Object> data = (Map<String, Object>) map.get("data");
+//
+//        Long total = ((Number) data.get("total")).longValue();
+//        Long size = ((Number) data.get("size")).longValue();
+//        Long current = ((Number) data.get("current")).longValue();
+//        List<ShortLinkPageRespDTO> records = JSON.parseArray(JSON.toJSONString(data.get("records")), ShortLinkPageRespDTO.class);
+//
+//        IPage<ShortLinkPageRespDTO> page = new Page<>(current, size, total);
+//        page.setRecords(records);
+//        return Results.success(page);
+        return JSON.parseObject(s, new TypeReference<>() {
+
         });
     }
 }
