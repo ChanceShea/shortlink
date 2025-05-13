@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="优化短链接跳转原始链接，开发缓存击穿功能">
+    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="优化短链接跳转原始链接，开发缓存穿透功能">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/req/ShortLinkCreateReqDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/dto/req/ShortLinkCreateReqDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/target/classes/shardingsphere-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/shardingsphere-config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,37 +81,37 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.shortlink [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ShortLinkAdminApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ShortLinkApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;Spring Boot.ShortlinkApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/shortlink/admin/src/main/java/com/shea/admin/remote/dto&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;应用程序.LinkShardingSphereTest.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.RandomStringTest.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.UserTableShardingTest.executor&quot;: &quot;Debug&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.shortlink [install].executor": "Run",
+    "Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ShortLinkAdminApplication.executor": "Debug",
+    "Spring Boot.ShortLinkApplication.executor": "Debug",
+    "Spring Boot.ShortlinkApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/JAVA/shortlink/admin/src/main/java/com/shea/admin/remote/dto",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.LinkShardingSphereTest.executor": "Run",
+    "应用程序.RandomStringTest.executor": "Run",
+    "应用程序.UserTableShardingTest.executor": "Debug"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -254,7 +255,7 @@
       <workItem from="1747096163720" duration="11000" />
       <workItem from="1747096987487" duration="3126000" />
       <workItem from="1747101810217" duration="4758000" />
-      <workItem from="1747118140219" duration="7781000" />
+      <workItem from="1747118140219" duration="8144000" />
     </task>
     <task id="LOCAL-00001" summary="短链接中台系统部分代码开发">
       <option name="closed" value="true" />
@@ -376,7 +377,31 @@
       <option name="project" value="LOCAL" />
       <updated>1747126120333</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="优化短链接跳转原始链接，开发缓存穿透功能">
+      <option name="closed" value="true" />
+      <created>1747126975372</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747126975372</updated>
+    </task>
+    <task id="LOCAL-00017" summary="优化短链接跳转原始链接，开发缓存穿透功能">
+      <option name="closed" value="true" />
+      <created>1747127158967</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1747127158967</updated>
+    </task>
+    <task id="LOCAL-00018" summary="优化短链接跳转原始链接，开发缓存穿透功能">
+      <option name="closed" value="true" />
+      <created>1747127214112</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1747127214112</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,9 +421,41 @@
     <MESSAGE value="修改短链接接口及后管调用中台修改短链接接口" />
     <MESSAGE value="新增分表规则" />
     <MESSAGE value="优化短链接跳转原始链接，开发缓存击穿功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化短链接跳转原始链接，开发缓存击穿功能" />
+    <MESSAGE value="优化短链接跳转原始链接，开发缓存穿透功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化短链接跳转原始链接，开发缓存穿透功能" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java</url>
+          <line>171</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java</url>
+          <line>177</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java</url>
+          <line>187</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java</url>
+          <line>191</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java</url>
+          <line>201</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
