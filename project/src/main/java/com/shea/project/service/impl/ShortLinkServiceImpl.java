@@ -38,8 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.shea.project.common.constants.RedisKeyConstant.GOTO_SHORT_LINK_KEY;
-import static com.shea.project.common.constants.RedisKeyConstant.LOCK_GOTO_SHORT_LINK_KEY;
+import static com.shea.project.common.constants.RedisKeyConstant.*;
 import static com.shea.project.common.enums.ValidDateTypeEnums.PERMANENT;
 
 /**
@@ -168,10 +167,19 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 .eq(ShortLinkGotoDO::getFullShortUrl, fullShortUrl);
         ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(gotoQueryWrapper);
         String originalLink = stringRedisTemplate.opsForValue().get(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl));
-        if (StrUtil.isNotBlank(originalLink)) {
-            response.sendRedirect(originalLink);
+        //先判断布隆过滤器中是否存在
+        boolean contains = rBloomFilter.contains(fullShortUrl);
+        if (!contains) {
+            //不存在，返回
             return;
         }
+        //存在，判断Redis中是否缓存了空值
+        String gotoIsNull = stringRedisTemplate.opsForValue().get(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
+        if (StrUtil.isNotBlank(gotoIsNull)) {
+            // 是，返回
+            return;
+        }
+        //否，对当前链接请求分布式锁，从数据库中查询数据
         RLock lock = redissonClient.getLock(String.format(LOCK_GOTO_SHORT_LINK_KEY, fullShortUrl));
         lock.lock();
         try {
@@ -182,7 +190,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 return;
             }
             if (shortLinkGotoDO == null) {
-                //进行封控
+                stringRedisTemplate.opsForValue().set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl), "-");
                 return;
             }
             LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
