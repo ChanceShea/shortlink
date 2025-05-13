@@ -179,12 +179,14 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
         boolean contains = rBloomFilter.contains(fullShortUrl);
         if (!contains) {
             //不存在，返回
+            response.sendRedirect("/page/notfound");
             return;
         }
         //存在，判断Redis中是否缓存了空值
         String gotoIsNull = stringRedisTemplate.opsForValue().get(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl));
         if (StrUtil.isNotBlank(gotoIsNull)) {
             // 是，返回
+            response.sendRedirect("/page/notfound");
             return;
         }
         //否，对当前链接请求分布式锁，从数据库中查询数据
@@ -201,6 +203,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 stringRedisTemplate.opsForValue()
                         .set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl),
                                 "-", 2, TimeUnit.MINUTES);
+                response.sendRedirect("/page/notfound");
                 return;
             }
             LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
@@ -215,6 +218,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                     stringRedisTemplate.opsForValue()
                             .set(String.format(GOTO_IS_NULL_SHORT_LINK_KEY, fullShortUrl),
                                     "-", 2, TimeUnit.MINUTES);
+                    response.sendRedirect("/page/notfound");
                     return;
                 }
                 stringRedisTemplate.opsForValue()
