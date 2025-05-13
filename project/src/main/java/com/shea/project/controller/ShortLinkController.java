@@ -6,6 +6,7 @@ import com.shea.project.common.convention.result.Result;
 import com.shea.project.common.convention.result.Results;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
+import com.shea.project.dto.req.ShortLinkUpdateReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
@@ -33,6 +34,15 @@ public class ShortLinkController {
     @PostMapping("/api/short-link/v1/create")
     public Result<ShortLinkCreateRespDTO> createShortLink(@RequestBody ShortLinkCreateReqDTO shortLinkCreateReqDTO) {
         return Results.success(shortLinkService.createShortLink(shortLinkCreateReqDTO));
+    }
+
+    /**
+     * 修改短链接
+     */
+    @PutMapping("/api/short-link/v1/update")
+    public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO shortLinkUpdateReqDTO) {
+        shortLinkService.updateShortLink(shortLinkUpdateReqDTO);
+        return Results.success();
     }
 
     /**

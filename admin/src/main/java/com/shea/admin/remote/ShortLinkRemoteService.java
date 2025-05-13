@@ -2,12 +2,14 @@ package com.shea.admin.remote;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.http.Method;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.shea.admin.common.convention.result.Result;
 import com.shea.admin.remote.dto.req.ShortLinkCreateReqDTO;
 import com.shea.admin.remote.dto.req.ShortLinkPageReqDTO;
+import com.shea.admin.remote.dto.req.ShortLinkUpdateReqDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkPageRespDTO;
@@ -70,6 +72,19 @@ public interface ShortLinkRemoteService {
     }
 
     /**
+     * 修改短链接
+     *
+     * @param shortLinkUpdateReqDTO 短链接修改请求参数
+     */
+    default void updateShortLink(ShortLinkUpdateReqDTO shortLinkUpdateReqDTO) {
+//        HttpUtil.post("http://127.0.0.1:8081/api/short-link/v1/update"
+//                , JSON.toJSONString(shortLinkUpdateReqDTO));
+        HttpRequest request = HttpUtil.createRequest(Method.PUT, "http://127.0.0.1:8081/api/short-link/v1/update");
+        request.body(JSON.toJSONString(shortLinkUpdateReqDTO));
+        request.execute();
+    }
+
+    /**
      * 查询短链接分组中的短链接数量
      *
      * @param gids 短链接分组标识集合
@@ -84,4 +99,6 @@ public interface ShortLinkRemoteService {
         return JSON.parseObject(requestBody, new TypeReference<>() {
         });
     }
+
+
 }

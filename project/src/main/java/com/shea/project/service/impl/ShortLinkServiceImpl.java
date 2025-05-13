@@ -3,6 +3,7 @@ package com.shea.project.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,6 +12,7 @@ import com.shea.project.dao.entity.ShortLinkDO;
 import com.shea.project.dao.mapper.IShortLinkMapper;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
+import com.shea.project.dto.req.ShortLinkUpdateReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
@@ -21,9 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.shea.project.common.enums.ValidDateTypeEnums.PERMANENT;
 
 /**
  * <p>
@@ -95,6 +101,48 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 .groupBy("gid");
         List<Map<String, Object>> shortLinkCount = baseMapper.selectMaps(wrapper);
         return BeanUtil.copyToList(shortLinkCount, ShortLinkGroupCountQueryDTO.class);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateShortLink(ShortLinkUpdateReqDTO shortLinkUpdateReqDTO) {
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, shortLinkUpdateReqDTO.getGid())
+                .eq(ShortLinkDO::getFullShortUrl, shortLinkUpdateReqDTO.getFullShortUrl())
+                .eq(ShortLinkDO::getEnableStatus, 0)
+                .eq(ShortLinkDO::getDelFlag, 0);
+        ShortLinkDO hasShortLinkDO = baseMapper.selectOne(queryWrapper);
+        if (hasShortLinkDO == null) {
+            throw new ClientException("短链接记录不存在");
+        }
+        ShortLinkDO shortLinkDO = ShortLinkDO.builder()
+                .domain(hasShortLinkDO.getDomain())
+                .shortUri(hasShortLinkDO.getShortUri())
+                .clickNum(hasShortLinkDO.getClickNum())
+                .favicon(hasShortLinkDO.getFavicon())
+                .gid(shortLinkUpdateReqDTO.getGid())
+                .originUrl(shortLinkUpdateReqDTO.getOriginUrl())
+                .description(shortLinkUpdateReqDTO.getDescription())
+                .validDateType(shortLinkUpdateReqDTO.getValidDateType())
+                .validDate(shortLinkUpdateReqDTO.getValidDate())
+                .build();
+        if (Objects.equals(hasShortLinkDO.getGid(), shortLinkUpdateReqDTO.getGid())) {
+            LambdaUpdateWrapper<ShortLinkDO> updateWrapper = Wrappers.lambdaUpdate(ShortLinkDO.class)
+                    .eq(ShortLinkDO::getFullShortUrl, shortLinkUpdateReqDTO.getFullShortUrl())
+                    .eq(ShortLinkDO::getGid, shortLinkUpdateReqDTO.getGid())
+                    .eq(ShortLinkDO::getDelFlag, 0)
+                    .eq(ShortLinkDO::getEnableStatus, 0)
+                    .set(Objects.equals(shortLinkUpdateReqDTO.getValidDateType(), PERMANENT.getType()), ShortLinkDO::getValidDate, null);
+            baseMapper.update(shortLinkDO, updateWrapper);
+        } else {
+            LambdaUpdateWrapper<ShortLinkDO> wrapper = Wrappers.lambdaUpdate(ShortLinkDO.class)
+                    .eq(ShortLinkDO::getFullShortUrl, shortLinkUpdateReqDTO.getFullShortUrl())
+                    .eq(ShortLinkDO::getGid, hasShortLinkDO.getGid())
+                    .eq(ShortLinkDO::getDelFlag, 0)
+                    .eq(ShortLinkDO::getEnableStatus, 0);
+            baseMapper.delete(wrapper);
+            baseMapper.insert(shortLinkDO);
+        }
     }
 
     public String generateSuffix(ShortLinkCreateReqDTO shortLinkCreateReqDTO) {
