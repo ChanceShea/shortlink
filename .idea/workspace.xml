@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="创建短链接时进行缓存预热，以及如果短链接失效，则设置短链接为空">
-      <change afterPath="$PROJECT_DIR$/project/src/main/resources/templates/notfound.html" afterDir="false" />
+    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="开发获取短链接获取标题接口">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/project/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/ShortLinkServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/controller/ShortLinkController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/target/classes/com/shea/project/service/impl/ShortLinkServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,10 +127,10 @@
       <recent name="com.shea.project.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.shea.admin.controller" />
       <recent name="com.shea.admin.remote.dto.req" />
       <recent name="com.shea.project.dto.req" />
       <recent name="com.shea.admin.remote" />
-      <recent name="com.shea.admin.controller" />
       <recent name="com.shea.admin.common.config" />
     </key>
   </component>
@@ -255,7 +255,7 @@
       <workItem from="1747096987487" duration="3126000" />
       <workItem from="1747101810217" duration="4758000" />
       <workItem from="1747118140219" duration="8144000" />
-      <workItem from="1747127294828" duration="1730000" />
+      <workItem from="1747127294828" duration="4236000" />
     </task>
     <task id="LOCAL-00001" summary="短链接中台系统部分代码开发">
       <option name="closed" value="true" />
@@ -417,7 +417,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747128585844</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="重构短链接跳转页面不存在">
+      <option name="closed" value="true" />
+      <created>1747129280224</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1747129280224</updated>
+    </task>
+    <task id="LOCAL-00022" summary="开发获取短链接获取标题接口">
+      <option name="closed" value="true" />
+      <created>1747130961068</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1747130961068</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,9 +455,22 @@
     <MESSAGE value="优化短链接跳转原始链接，开发缓存击穿功能" />
     <MESSAGE value="优化短链接跳转原始链接，开发缓存穿透功能" />
     <MESSAGE value="创建短链接时进行缓存预热，以及如果短链接失效，则设置短链接为空" />
-    <option name="LAST_COMMIT_MESSAGE" value="创建短链接时进行缓存预热，以及如果短链接失效，则设置短链接为空" />
+    <MESSAGE value="重构短链接跳转页面不存在" />
+    <MESSAGE value="开发获取短链接获取标题接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="开发获取短链接获取标题接口" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/UrlTitleController.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
