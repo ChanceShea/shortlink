@@ -11,9 +11,12 @@ import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,6 +30,14 @@ import java.util.List;
 public class ShortLinkController {
 
     private final IShortLinkService shortLinkService;
+
+    @GetMapping("/{short-uri}")
+    public void restoreUrl(@PathVariable("short-uri") String shortUri,
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws IOException {
+        shortLinkService.restoreUrl(shortUri, request, response);
+
+    }
 
     /**
      * 创建短链接

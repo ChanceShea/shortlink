@@ -1,6 +1,7 @@
 package com.shea.project.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -9,6 +10,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shea.project.common.convention.exception.ClientException;
 import com.shea.project.dao.entity.ShortLinkDO;
+import com.shea.project.dao.entity.ShortLinkGotoDO;
+import com.shea.project.dao.mapper.IShortLinkGotoMapper;
 import com.shea.project.dao.mapper.IShortLinkMapper;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
@@ -18,17 +21,25 @@ import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IShortLinkService;
 import com.shea.project.toolkit.HashUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.shea.project.common.constants.RedisKeyConstant.GOTO_SHORT_LINK_KEY;
+import static com.shea.project.common.constants.RedisKeyConstant.LOCK_GOTO_SHORT_LINK_KEY;
 import static com.shea.project.common.enums.ValidDateTypeEnums.PERMANENT;
 
 /**
@@ -45,6 +56,10 @@ import static com.shea.project.common.enums.ValidDateTypeEnums.PERMANENT;
 public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLinkDO> implements IShortLinkService {
 
     private final RBloomFilter<String> rBloomFilter;
+    private final IShortLinkGotoMapper shortLinkGotoMapper;
+    private final StringRedisTemplate stringRedisTemplate;
+    private final RedissonClient redissonClient;
+
 
     @Override
     public ShortLinkCreateRespDTO createShortLink(ShortLinkCreateReqDTO shortLinkCreateReqDTO) {
@@ -56,26 +71,26 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
         shortLinkDO.setShortUri(suffix);
         shortLinkDO.setEnableStatus(0);
 
+        ShortLinkGotoDO shortLinkGotoDO = ShortLinkGotoDO.builder()
+                .gid(shortLinkCreateReqDTO.getGid())
+                .fullShortUrl(fullShortUrl)
+                .build();
         try {
+            shortLinkGotoMapper.insert(shortLinkGotoDO);
             baseMapper.insert(shortLinkDO);
         } catch (DuplicateKeyException ex) {
-
             LambdaQueryWrapper<ShortLinkDO> wrapper = Wrappers
                     .lambdaQuery(ShortLinkDO.class)
                     .eq(ShortLinkDO::getFullShortUrl, fullShortUrl);
             ShortLinkDO one = baseMapper.selectOne(wrapper);
-
             if (one != null) {
                 log.warn("短链接:{}已存在", fullShortUrl);
                 throw new ClientException("短链接已存在");
             }
-
         }
-
         rBloomFilter.add(fullShortUrl);
-
         return ShortLinkCreateRespDTO.builder()
-                .fullShortUrl(shortLinkDO.getFullShortUrl())
+                .fullShortUrl(shortLinkCreateReqDTO.getDomainProtocol() + shortLinkDO.getFullShortUrl())
                 .originUrl(shortLinkDO.getOriginUrl())
                 .gid(shortLinkDO.getGid())
                 .build();
@@ -142,6 +157,46 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                     .eq(ShortLinkDO::getEnableStatus, 0);
             baseMapper.delete(wrapper);
             baseMapper.insert(shortLinkDO);
+        }
+    }
+
+    @Override
+    public void restoreUrl(String shortUri, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String fullShortUrl = request.getServerName() + "/" + shortUri;
+        LambdaQueryWrapper<ShortLinkGotoDO> gotoQueryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class)
+                .eq(ShortLinkGotoDO::getFullShortUrl, fullShortUrl);
+        ShortLinkGotoDO shortLinkGotoDO = shortLinkGotoMapper.selectOne(gotoQueryWrapper);
+        String originalLink = stringRedisTemplate.opsForValue().get(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl));
+        if (StrUtil.isNotBlank(originalLink)) {
+            response.sendRedirect(originalLink);
+            return;
+        }
+        RLock lock = redissonClient.getLock(String.format(LOCK_GOTO_SHORT_LINK_KEY, fullShortUrl));
+        lock.lock();
+        try {
+            // 双重判定锁
+            originalLink = stringRedisTemplate.opsForValue().get(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl));
+            if (StrUtil.isNotBlank(originalLink)) {
+                response.sendRedirect(originalLink);
+                return;
+            }
+            if (shortLinkGotoDO == null) {
+                //进行封控
+                return;
+            }
+            LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                    .eq(ShortLinkDO::getFullShortUrl, fullShortUrl)
+                    .eq(ShortLinkDO::getGid, shortLinkGotoDO.getGid())
+                    .eq(ShortLinkDO::getDelFlag, 0)
+                    .eq(ShortLinkDO::getEnableStatus, 0);
+            ShortLinkDO shortLinkDO = baseMapper.selectOne(queryWrapper);
+            if (shortLinkDO != null) {
+                stringRedisTemplate.opsForValue().set(String.format(GOTO_SHORT_LINK_KEY, fullShortUrl), shortLinkDO.getOriginUrl());
+                response.sendRedirect(shortLinkDO.getOriginUrl());
+            }
+        } finally {
+            lock.unlock();
         }
     }
 

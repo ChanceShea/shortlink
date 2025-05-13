@@ -9,7 +9,10 @@ import com.shea.project.dto.req.ShortLinkUpdateReqDTO;
 import com.shea.project.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.project.dto.resp.ShortLinkGroupCountQueryDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,4 +55,13 @@ public interface IShortLinkService extends IService<ShortLinkDO> {
      * @param shortLinkUpdateReqDTO 修改短链接请求参数
      */
     void updateShortLink(ShortLinkUpdateReqDTO shortLinkUpdateReqDTO);
+
+    /**
+     * 短链接跳转
+     *
+     * @param shortUri 短链接后缀
+     * @param request  HTTP 请求
+     * @param response HTTP 响应
+     */
+    void restoreUrl(String shortUri, HttpServletRequest request, HttpServletResponse response) throws IOException;
 }

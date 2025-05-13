@@ -1,7 +1,7 @@
 package com.shea.project.common.constants;
 
 /**
- * @description: TODO
+ * @description: Redis缓存键常量
  * @Author: Shea.
  * @Date: 2025/5/12 22:13
  */
