@@ -1,5 +1,6 @@
 package com.shea.admin.remote.dto.req;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ public class ShortLinkCreateReqDTO {
     /**
      * 有效期类型：0：永久  1：自定义
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Boolean validDateType;
 
     /**

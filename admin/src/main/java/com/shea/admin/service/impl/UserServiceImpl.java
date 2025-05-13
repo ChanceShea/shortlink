@@ -15,6 +15,7 @@ import com.shea.admin.dto.req.UserRegisterReqDTO;
 import com.shea.admin.dto.req.UserUpdateReqDTO;
 import com.shea.admin.dto.resp.UserLoginRespDTO;
 import com.shea.admin.dto.resp.UserRespDTO;
+import com.shea.admin.service.GroupService;
 import com.shea.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
@@ -40,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     private final RBloomFilter<String> bloomFilter;
     private final RedissonClient redissonClient;
     private final StringRedisTemplate stringRedisTemplate;
+    private final GroupService groupService;
 
     @Override
     public UserRespDTO getUserByUsername(String username) {
@@ -82,6 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
                 //将用户名添加到布隆过滤器中
                 bloomFilter.add(userRegisterReqDTO.getUsername());
+                groupService.saveGroup(userRegisterReqDTO.getUsername(), "默认分组");
                 return;
             }
 

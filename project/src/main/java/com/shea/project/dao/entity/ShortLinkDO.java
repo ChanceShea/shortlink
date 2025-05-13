@@ -3,6 +3,7 @@ package com.shea.project.dao.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.shea.project.common.database.BaseDO;
 import lombok.*;
 
@@ -83,6 +84,7 @@ public class ShortLinkDO extends BaseDO implements Serializable {
     /**
      * 有效期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validDate;
 
     /**
