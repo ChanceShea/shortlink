@@ -17,3 +17,8 @@ spring:
       port: 6379
       password: xgw18720322169.
       database: 1
+
+short-link:
+  stats:
+    local:
+      amap-key: 24edb97310c8d94e4b0435486db840cf

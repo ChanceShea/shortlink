@@ -8,7 +8,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * <p>
@@ -25,7 +25,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkLocalStats extends BaseDO implements Serializable {
+public class LinkLocalStatsDO extends BaseDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class LinkLocalStats extends BaseDO implements Serializable {
     /**
      * 日期
      */
-    private LocalDate date;
+    private Date date;
 
     /**
      * 访问量

@@ -1,7 +1,7 @@
 package com.shea.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.shea.project.dao.entity.LinkLocalStats;
+import com.shea.project.dao.entity.LinkLocalStatsDO;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.shea.project.dao.entity.LinkLocalStats;
  * @author Shea
  * @since 2025-05-14
  */
-public interface ILinkLocalStatsService extends IService<LinkLocalStats> {
+public interface ILinkLocalStatsService extends IService<LinkLocalStatsDO> {
 
 }
