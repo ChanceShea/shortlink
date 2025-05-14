@@ -2,7 +2,6 @@ package com.shea.project.common.database;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,7 +12,6 @@ import java.util.Date;
  * @Date: 2025/5/11 10:19
  */
 @Data
-@Builder
 public class BaseDO {
     /**
      * 创建时间
