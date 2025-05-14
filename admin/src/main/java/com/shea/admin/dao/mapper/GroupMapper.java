@@ -9,6 +9,6 @@ import com.shea.admin.dao.entity.GroupDO;
  * @author Shea
  * @since 2025-05-11
  */
-public interface TGroupMapper extends BaseMapper<GroupDO> {
+public interface GroupMapper extends BaseMapper<GroupDO> {
 
 }

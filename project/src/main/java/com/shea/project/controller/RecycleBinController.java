@@ -3,15 +3,14 @@ package com.shea.project.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.shea.project.common.convention.result.Result;
 import com.shea.project.common.convention.result.Results;
+import com.shea.project.dto.req.RecycleBinRecoverReqDTO;
+import com.shea.project.dto.req.RecycleBinRemoveReqDTO;
 import com.shea.project.dto.req.RecycleBinReqDTO;
-import com.shea.project.dto.req.ShortLinkPageReqDTO;
+import com.shea.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import com.shea.project.dto.resp.ShortLinkPageRespDTO;
 import com.shea.project.service.IRecycleBinService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description: TODO
@@ -37,7 +36,25 @@ public class RecycleBinController {
      * 回收站短链接分页查询
      */
     @GetMapping("/api/short-link/recycle-bin/v1/page")
-    public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO) {
-        return Results.success(recycleBinService.pageShortLink(shortLinkPageReqDTO));
+    public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(@RequestParam ShortLinkRecycleBinPageReqDTO shortLinkRecycleBinPageReqDTO) {
+        return Results.success(recycleBinService.pageShortLink(shortLinkRecycleBinPageReqDTO));
+    }
+
+    /**
+     * 回收站恢复短链接
+     */
+    @PostMapping("/api/short-link/recycle-bin/v1/recover")
+    public Result<Void> recoverRecycleBin(@RequestBody RecycleBinRecoverReqDTO recycleBinRecoverReqDTO) {
+        recycleBinService.recoverRecycleBin(recycleBinRecoverReqDTO);
+        return Results.success();
+    }
+
+    /**
+     * 回收站移除短链接
+     */
+    @PostMapping("/api/short-link/recycle-bin/v1/remove")
+    public Result<Void> removeRecycleBin(@RequestBody RecycleBinRemoveReqDTO recycleBinRemoveReqDTO) {
+        recycleBinService.removeRecycleBin(recycleBinRemoveReqDTO);
+        return Results.success();
     }
 }

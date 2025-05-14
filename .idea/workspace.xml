@@ -4,11 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="开发短链接创建时获取原始网站图标">
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/RecycleBinController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/RecycleBinReqDTO.java" afterDir="false" />
+    <list default="true" id="e74c1a52-cb9c-4211-aedd-31fd7c01852c" name="更改" comment="开发短链接回收站分页查询功能及后管调用中台相关接口">
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/RecycleBinRecoverReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/RecycleBinRemoveReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/dto/req/ShortLinkRecycleBinPageReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/RecycleBinService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/RecycleBinServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/req/RecycleBinRecoverReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/req/RecycleBinRemoveReqDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/dto/req/ShortLinkRecycleBinPageReqDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/RecycleBinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/RecycleBinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dao/mapper/TGroupMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/dao/mapper/GroupMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/remote/ShortLinkRemoteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/GroupServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/mapper/IRecycleBinService.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/src/main/resources/mapper/GroupMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/dao/mapper/TGroupMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/admin/target/classes/com/shea/admin/service/impl/GroupServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/common/database/BaseDO.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/common/database/BaseDO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/RecycleBinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/controller/RecycleBinController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IRecycleBinService.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/IRecycleBinService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java" afterDir="false" />
@@ -83,37 +96,37 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.shortlink [install].executor": "Run",
-    "Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ShortLinkAdminApplication.executor": "Debug",
-    "Spring Boot.ShortLinkApplication.executor": "Debug",
-    "Spring Boot.ShortlinkApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/JAVA/shortlink/admin/src/main/java/com/shea/admin/remote/dto/req",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.ignored.files",
-    "vue.rearranger.settings.migration": "true",
-    "应用程序.LinkShardingSphereTest.executor": "Run",
-    "应用程序.RandomStringTest.executor": "Run",
-    "应用程序.UserTableShardingTest.executor": "Debug"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.shortlink [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.shortlink [org.apache.maven.plugins:maven-install-plugin:3.1.4:install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ShortLinkAdminApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShortLinkApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.ShortlinkApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JAVA/shortlink/admin/src/main/java/com/shea/admin/remote/dto/req&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.ignored.files&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.LinkShardingSphereTest.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.RandomStringTest.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.UserTableShardingTest.executor&quot;: &quot;Debug&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -131,9 +144,9 @@
       <recent name="com.shea.project.controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.shea.admin.controller" />
       <recent name="com.shea.admin.remote.dto.req" />
       <recent name="com.shea.project.dto.req" />
+      <recent name="com.shea.admin.controller" />
       <recent name="com.shea.admin.remote" />
       <recent name="com.shea.admin.common.config" />
     </key>
@@ -260,7 +273,8 @@
       <workItem from="1747101810217" duration="4758000" />
       <workItem from="1747118140219" duration="8144000" />
       <workItem from="1747127294828" duration="4388000" />
-      <workItem from="1747143576451" duration="1696000" />
+      <workItem from="1747143576451" duration="4440000" />
+      <workItem from="1747198653780" duration="3719000" />
     </task>
     <task id="LOCAL-00001" summary="短链接中台系统部分代码开发">
       <option name="closed" value="true" />
@@ -446,7 +460,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747131689361</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="开发短链接回收站分页查询功能及后管调用中台相关接口">
+      <option name="closed" value="true" />
+      <created>1747145431447</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1747145431447</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,7 +493,8 @@
     <MESSAGE value="重构短链接跳转页面不存在" />
     <MESSAGE value="开发获取短链接获取标题接口" />
     <MESSAGE value="开发短链接创建时获取原始网站图标" />
-    <option name="LAST_COMMIT_MESSAGE" value="开发短链接创建时获取原始网站图标" />
+    <MESSAGE value="开发短链接回收站分页查询功能及后管调用中台相关接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="开发短链接回收站分页查询功能及后管调用中台相关接口" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -483,6 +506,36 @@
           <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/UrlTitleController.java</url>
           <line>26</line>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/RecycleBinServiceImpl.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/service/impl/RecycleBinServiceImpl.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/src/main/java/com/shea/admin/controller/RecycleBinController.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/project/src/main/java/com/shea/project/service/impl/RecycleBinServiceImpl.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="40" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -7,10 +7,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.shea.admin.common.convention.result.Result;
-import com.shea.admin.remote.dto.req.RecycleBinReqDTO;
-import com.shea.admin.remote.dto.req.ShortLinkCreateReqDTO;
-import com.shea.admin.remote.dto.req.ShortLinkPageReqDTO;
-import com.shea.admin.remote.dto.req.ShortLinkUpdateReqDTO;
+import com.shea.admin.remote.dto.req.*;
 import com.shea.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkPageRespDTO;
@@ -130,28 +127,46 @@ public interface ShortLinkRemoteService {
      * @param shortLinkPageReqDTO 分页查询回收站短链接请求参数
      * @return 分页查询回收站短链接响应参数
      */
-    default Result<IPage<ShortLinkPageRespDTO>> pageRecycleShortLink(ShortLinkPageReqDTO shortLinkPageReqDTO) {
-        Map<String, Object> requestMap = new HashMap<>();
-        requestMap.put("gid", shortLinkPageReqDTO.getGid());
-        requestMap.put("current", shortLinkPageReqDTO.getCurrent());
-        requestMap.put("size", shortLinkPageReqDTO.getSize());
-        String s = HttpRequest.get("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/page")
-                .form(requestMap) // 自动拼接到 query string
-                .execute()
-                .body();
-//        Map map = JSON.parseObject(s, Map.class);
-//        Map<String, Object> data = (Map<String, Object>) map.get("data");
-//
-//        Long total = ((Number) data.get("total")).longValue();
-//        Long size = ((Number) data.get("size")).longValue();
-//        Long current = ((Number) data.get("current")).longValue();
-//        List<ShortLinkPageRespDTO> records = JSON.parseArray(JSON.toJSONString(data.get("records")), ShortLinkPageRespDTO.class);
-//
-//        IPage<ShortLinkPageRespDTO> page = new Page<>(current, size, total);
-//        page.setRecords(records);
-//        return Results.success(page);
+    default Result<IPage<ShortLinkPageRespDTO>> pageRecycleShortLink(ShortLinkRecycleBinPageReqDTO shortLinkPageReqDTO) {
+//        Map<String, Object> requestMap = new HashMap<>();
+//        requestMap.put("gidList", shortLinkPageReqDTO.getGids());
+//        requestMap.put("current", shortLinkPageReqDTO.getCurrent());
+//        requestMap.put("size", shortLinkPageReqDTO.getSize());
+//        String s = HttpRequest.get("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/page")
+//                .form(requestMap) // 更明确地控制 form 参数编码
+//                .execute()
+//                .body();
+
+        String baseUrl = "http://127.0.0.1:8081/api/short-link/recycle-bin/v1/page";
+        String ss = String.join(",", shortLinkPageReqDTO.getGids());
+        System.out.println(ss);
+        String query = "?gidList=" + String.join(",", shortLinkPageReqDTO.getGids())
+                + "&current=" + shortLinkPageReqDTO.getCurrent()
+                + "&size=" + shortLinkPageReqDTO.getSize();
+
+        String s = HttpUtil.get(baseUrl + query);
         return JSON.parseObject(s, new TypeReference<>() {
 
         });
+    }
+
+    /**
+     * 从回收站中恢复短链接
+     *
+     * @param recycleBinRecoverReqDTO 回收站恢复短链接请求参数
+     */
+    default void recoverRecycleBin(RecycleBinRecoverReqDTO recycleBinRecoverReqDTO) {
+        HttpUtil.post("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/recover",
+                JSON.toJSONString(recycleBinRecoverReqDTO));
+    }
+
+    /**
+     * 回收站移除短链接
+     *
+     * @param recycleBinRemoveReqDTO 回收站移除短链接请求参数
+     */
+    default void removeRecycleBin(RecycleBinRemoveReqDTO recycleBinRemoveReqDTO) {
+        HttpUtil.post("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/remove",
+                JSON.toJSONString(recycleBinRemoveReqDTO));
     }
 }

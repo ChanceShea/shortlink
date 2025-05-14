@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shea.admin.common.biz.user.UserContext;
 import com.shea.admin.common.convention.result.Result;
 import com.shea.admin.dao.entity.GroupDO;
-import com.shea.admin.dao.mapper.TGroupMapper;
+import com.shea.admin.dao.mapper.GroupMapper;
 import com.shea.admin.dto.req.GroupSortReqDTO;
 import com.shea.admin.dto.req.GroupUpdateReqDTO;
 import com.shea.admin.dto.resp.GroupRespDTO;
@@ -31,7 +31,7 @@ import java.util.Optional;
  * @since 2025-05-11
  */
 @Service
-public class GroupServiceImpl extends ServiceImpl<TGroupMapper, GroupDO> implements GroupService {
+public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
 
     //TODO 后续重构为Spring Cloud Feign调用
     ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {
