@@ -7,11 +7,12 @@ import com.shea.project.common.database.BaseDO;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 地区监控实体
+ * 操作系统访问实体
  *
  * @author Shea
  * @since 2025-05-14
@@ -19,12 +20,13 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_link_local_stats")
+@TableName("t_link_os_stats")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LinkLocalStatsDO extends BaseDO implements Serializable {
+public class LinkOsStatsDO extends BaseDO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -49,28 +51,12 @@ public class LinkLocalStatsDO extends BaseDO implements Serializable {
     private Date date;
 
     /**
+     * 操作系统
+     */
+    private String os;
+
+    /**
      * 访问量
      */
     private Integer cnt;
-
-    /**
-     * 省份名称
-     */
-    private String province;
-
-    /**
-     * 市名称
-     */
-    private String city;
-
-    /**
-     * 城市编码
-     */
-    private String adcode;
-
-    /**
-     * 国家标识
-     */
-    private String country;
-
 }

@@ -12,9 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>
- *
- * </p>
+ * 监控基础数据实体
  *
  * @author Shea
  * @since 2025-05-14

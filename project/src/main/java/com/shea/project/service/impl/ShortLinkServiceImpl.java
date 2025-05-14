@@ -16,14 +16,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shea.project.common.convention.exception.ClientException;
-import com.shea.project.dao.entity.LinkAccessStatsDO;
-import com.shea.project.dao.entity.LinkLocalStatsDO;
-import com.shea.project.dao.entity.ShortLinkDO;
-import com.shea.project.dao.entity.ShortLinkGotoDO;
-import com.shea.project.dao.mapper.IShortLinkGotoMapper;
-import com.shea.project.dao.mapper.IShortLinkMapper;
-import com.shea.project.dao.mapper.LinkAccessStatsMapper;
-import com.shea.project.dao.mapper.LinkLocalStatsMapper;
+import com.shea.project.dao.entity.*;
+import com.shea.project.dao.mapper.*;
 import com.shea.project.dto.req.ShortLinkCreateReqDTO;
 import com.shea.project.dto.req.ShortLinkPageReqDTO;
 import com.shea.project.dto.req.ShortLinkUpdateReqDTO;
@@ -81,6 +75,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
     private final RedissonClient redissonClient;
     private final LinkAccessStatsMapper linkAccessStatsMapper;
     private final LinkLocalStatsMapper linkLocalStatsMapper;
+    private final LinkOsStatsMapper linkOsStatsMapper;
 
     @Value("${short-link.stats.local.amap-key}")
     private String amapKey;
@@ -339,6 +334,14 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                         .build();
                 linkLocalStatsMapper.insertShortLinkLocalStats(linkLocalStatsDO);
             }
+            LinkOsStatsDO osStatsDO = LinkOsStatsDO.builder()
+                    .date(new Date())
+                    .gid(gid)
+                    .fullShortUrl(fullShortUrl)
+                    .cnt(1)
+                    .os(ShortLinkUtil.getClientOS(request))
+                    .build();
+            linkOsStatsMapper.insertShortLinkOsStats(osStatsDO);
         } catch (Throwable ex) {
             log.error("统计短链接访问异常", ex);
         }

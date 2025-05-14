@@ -60,4 +60,23 @@ public class ShortLinkUtil {
         ip = request.getRemoteAddr();
         return ip;
     }
+
+    /**
+     * 获取用户操作系统信息
+     *
+     * @param request 请求
+     * @return 返回用户操作系统信息
+     */
+    public static String getClientOS(HttpServletRequest request) {
+        String userAgent = request.getHeader("User-Agent");
+        if (userAgent == null) return "Unknown";
+        if (userAgent.contains("Windows NT 10.0")) return "Windows 10";
+        if (userAgent.contains("Windows NT 6.3")) return "Windows 8.1";
+        if (userAgent.contains("Windows NT 6.1")) return "Windows 7";
+        if (userAgent.contains("Mac OS X")) return "macOS";
+        if (userAgent.contains("X11; Linux")) return "Linux";
+        if (userAgent.contains("Android")) return "Android";
+        if (userAgent.contains("iPhone") || userAgent.contains("iPad")) return "iOS";
+        return "Other";
+    }
 }

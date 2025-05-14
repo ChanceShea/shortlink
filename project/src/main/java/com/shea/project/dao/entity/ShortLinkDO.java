@@ -12,9 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>
- *
- * </p>
+ * 短链接实体
  *
  * @author Shea
  * @since 2025-05-11
