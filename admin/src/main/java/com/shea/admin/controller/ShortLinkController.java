@@ -12,7 +12,7 @@ import com.shea.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @description: TODO
+ * @description: 短链接控制层
  * @Author: Shea.
  * @Date: 2025/5/12 15:58
  */

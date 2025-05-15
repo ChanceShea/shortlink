@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @description: TODO
+ * @description: 用户实体类
  * @Author: Shea.
  * @Date: 2025/5/10 14:54
  */

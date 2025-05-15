@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.shea.admin.dao.entity.UserDO;
 
 /**
- * @description: TODO
+ * @description: 用户持久层
  * @Author: Shea.
  * @Date: 2025/5/10 14:54
  */
