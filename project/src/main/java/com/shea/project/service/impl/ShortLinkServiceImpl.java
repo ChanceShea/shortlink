@@ -51,6 +51,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.shea.project.common.constants.RedisKeyConstant.*;
 import static com.shea.project.common.constants.ShortLinkConstant.AMAP_REMOTE_URL;
@@ -77,6 +78,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
     private final LinkLocalStatsMapper linkLocalStatsMapper;
     private final LinkOsStatsMapper linkOsStatsMapper;
     private final LinkBrowserStatsMapper linkBrowserStatsMapper;
+    private final LinkAccessLogsMapper linkAccessLogsMapper;
 
     @Value("${short-link.stats.local.amap-key}")
     private String amapKey;
@@ -263,15 +265,16 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
         Cookie[] cookies = request.getCookies();
         AtomicBoolean uvFirstFlag = new AtomicBoolean();
         try {
+            AtomicReference<String> uv = new AtomicReference<>();
             //通过给用户设置cookie，来统计UV
             Runnable addResponseCookieTask = () -> {
-                String uv = UUID.fastUUID().toString();
-                Cookie uvCookie = new Cookie("uv", uv);
+                uv.set(UUID.fastUUID().toString());
+                Cookie uvCookie = new Cookie("uv", uv.get());
                 uvCookie.setMaxAge(60 * 60 * 24 * 30);
                 uvCookie.setPath(StrUtil.sub(fullShortUrl, fullShortUrl.indexOf("/"), fullShortUrl.length()));
                 response.addCookie(uvCookie);
                 uvFirstFlag.set(Boolean.TRUE);
-                stringRedisTemplate.opsForSet().add(SHORT_LINK_STATS_UV_KEY + fullShortUrl, uv);
+                stringRedisTemplate.opsForSet().add(SHORT_LINK_STATS_UV_KEY + fullShortUrl, uv.get());
             };
             // 检查cookies数组是否不为空
             if (ArrayUtil.isNotEmpty(cookies)) {
@@ -281,6 +284,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                         .findFirst()
                         .map(Cookie::getValue)
                         .ifPresentOrElse(each -> {
+                            uv.set(each);
                             // 将找到的"uv"cookie的值添加到Redis集合中，以统计独立访客
                             Long uvAdded = stringRedisTemplate.opsForSet().add(SHORT_LINK_STATS_UV_KEY + fullShortUrl, each);
                             // 设置uvFirstFlag，表示是否成功添加新元素到集合
@@ -290,8 +294,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                 // 如果cookies为空，则直接执行添加响应cookie的任务
                 addResponseCookieTask.run();
             }
-            String uip = ShortLinkUtil.getClientIp(request);
-            Long uipAdded = stringRedisTemplate.opsForSet().add(SHORT_LINK_STATS_UIP_KEY + fullShortUrl, uip);
+            String ip = ShortLinkUtil.getClientIp(request);
+            Long uipAdded = stringRedisTemplate.opsForSet().add(SHORT_LINK_STATS_UIP_KEY + fullShortUrl, ip);
             boolean uipFirstFlag = uipAdded != null && uipAdded > 0L;
             if (StrUtil.isBlank(gid)) {
                 LambdaQueryWrapper<ShortLinkGotoDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkGotoDO.class)
@@ -314,7 +318,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                     .build();
             linkAccessStatsMapper.insertShortLinkStats(linkAccessStatsDO);
             Map<String, Object> requestMap = new HashMap<>();
-            requestMap.put("ip", uip);
+            requestMap.put("ip", ip);
             requestMap.put("key", amapKey);
             String resultLocalStr = HttpUtil.get(AMAP_REMOTE_URL, requestMap);
             JSONObject jsonObject = JSON.parseObject(resultLocalStr);
@@ -335,23 +339,34 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                         .build();
                 linkLocalStatsMapper.insertShortLinkLocalStats(linkLocalStatsDO);
             }
+            String os = ShortLinkUtil.getClientOS(request);
             LinkOsStatsDO osStatsDO = LinkOsStatsDO.builder()
                     .date(new Date())
                     .gid(gid)
                     .fullShortUrl(fullShortUrl)
                     .cnt(1)
-                    .os(ShortLinkUtil.getClientOS(request))
+                    .os(os)
                     .build();
             linkOsStatsMapper.insertShortLinkOsStats(osStatsDO);
 
+            String browser = ShortLinkUtil.getBrowser(request);
             LinkBrowserStatsDO browserStatsDO = LinkBrowserStatsDO.builder()
                     .date(new Date())
                     .gid(gid)
                     .fullShortUrl(fullShortUrl)
-                    .browser(ShortLinkUtil.getBrowser(request))
+                    .browser(browser)
                     .cnt(1)
                     .build();
             linkBrowserStatsMapper.insertShortLinkBrowserState(browserStatsDO);
+            LinkAccessLogsDO linkAccessLogsDO = LinkAccessLogsDO.builder()
+                    .gid(gid)
+                    .user(uv.get())
+                    .fullShortUrl(fullShortUrl)
+                    .browser(browser)
+                    .os(os)
+                    .ip(ip)
+                    .build();
+            linkAccessLogsMapper.insert(linkAccessLogsDO);
         } catch (Throwable ex) {
             log.error("统计短链接访问异常", ex);
         }
