@@ -80,6 +80,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
     private final LinkBrowserStatsMapper linkBrowserStatsMapper;
     private final LinkAccessLogsMapper linkAccessLogsMapper;
     private final LinkDeviceStatsMapper linkDeviceStatsMapper;
+    private final LinkNetworkStatsMapper linkNetworkStatsMapper;
 
     @Value("${short-link.stats.local.amap-key}")
     private String amapKey;
@@ -380,6 +381,16 @@ public class ShortLinkServiceImpl extends ServiceImpl<IShortLinkMapper, ShortLin
                     .date(new Date())
                     .build();
             linkDeviceStatsMapper.insertShortLinkDeviceStats(deviceStatsDO);
+
+            String netWork = ShortLinkUtil.getNetwork(request);
+            LinkNetworkStatsDO linkNetworkStatsDO = LinkNetworkStatsDO.builder()
+                    .gid(gid)
+                    .fullShortUrl(fullShortUrl)
+                    .cnt(1)
+                    .date(new Date())
+                    .network(netWork)
+                    .build();
+            linkNetworkStatsMapper.insertShortLinkNetworkState(linkNetworkStatsDO);
         } catch (Throwable ex) {
             log.error("统计短链接访问异常", ex);
         }
