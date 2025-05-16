@@ -1,5 +1,5 @@
 # 忽略Maven构建输出目录
-**/target/classes/
+**/target
 
 # 保留maven-wrapper.jar（如果你使用了mvnw）
 !.mvn/wrapper/maven-wrapper.jar
