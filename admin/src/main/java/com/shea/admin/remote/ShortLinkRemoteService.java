@@ -179,7 +179,9 @@ public interface ShortLinkRemoteService {
      * @return 短链接访问记录数据
      */
     default Result<IPage<ShortLinkStatsAccessRecordRespDTO>> shortLinkAccessRecordStats(ShortLinkStatsAccessRecordReqDTO shortLinkStatsAccessRecordReqDTO) {
-        String result = HttpUtil.get("http://127.0.0.1:8081/api/short-link/v1/stats/access-record", BeanUtil.beanToMap(shortLinkStatsAccessRecordReqDTO));
+        Map<String, Object> requestMap = BeanUtil.beanToMap(shortLinkStatsAccessRecordReqDTO);
+        requestMap.remove("orders");
+        String result = HttpUtil.get("http://127.0.0.1:8081/api/short-link/v1/stats/access-record", requestMap);
         return JSON.parseObject(result, new TypeReference<>() {
         });
     }
