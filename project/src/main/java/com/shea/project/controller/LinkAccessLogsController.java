@@ -1,7 +1,6 @@
 package com.shea.project.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2025-05-15
  */
 @RestController
-@RequestMapping("/link-acces-logs")
-public class LinkAccesLogsController {
+public class LinkAccessLogsController {
 
 }
