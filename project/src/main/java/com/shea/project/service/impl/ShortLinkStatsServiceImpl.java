@@ -43,6 +43,8 @@ public class ShortLinkStatsServiceImpl implements IShortLInkStatsService {
         if (CollUtil.isEmpty(listStatsByShortLink)) {
             return null;
         }
+        String gid = shortLinkStatsReqDTO.getGid();
+        String fullShortUrl = shortLinkStatsReqDTO.getFullShortUrl();
 
         // 基础信息访问详情
         List<ShortLinkStatsAccessDailyRespDTO> daily = new ArrayList<>();
@@ -222,6 +224,7 @@ public class ShortLinkStatsServiceImpl implements IShortLInkStatsService {
                     .build();
             networkRespDTOS.add(networkRespDTO);
         });
+
         return ShortLinkStatsRespDTO.builder()
                 .browserStats(browserStats)
                 .daily(daily)
