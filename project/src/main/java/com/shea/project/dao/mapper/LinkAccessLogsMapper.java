@@ -3,10 +3,12 @@ package com.shea.project.dao.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.shea.project.dao.entity.LinkAccessLogsDO;
 import com.shea.project.dto.req.ShortLinkStatsReqDTO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -57,4 +59,27 @@ public interface LinkAccessLogsMapper extends BaseMapper<LinkAccessLogsDO> {
             ") AS user_counts;")
     HashMap<String, Object> findUvTypeCntByShortLink(ShortLinkStatsReqDTO requestParam);
 
+    /**
+     * 根据短链接获取用户是新访客还是老访客
+     */
+//    @Select("SELECT " +
+//            "        user, " +
+//            "        IF(MIN(create_time) BETWEEN '2023-11-14' AND '2023-11-16', '新访客', '老访客') AS uvType " +
+//            "        FROM " +
+//            "        t_link_access_logs " +
+//            "        WHERE " +
+//            "        full_short_url = #{fullShortUrl} " +
+//            "        AND gid = #{gid} " +
+//            "        AND user IN " +
+//            "        <foreach collection=\"userAccessRecordList\" separator=\",\" open=\"(\" close=\")\" item=\"item\"> " +
+//            "            #{item} " +
+//            "        </foreach> " +
+//            "        GROUP BY " +
+//            "        user")
+    List<Map<String, Object>> selectUvTypeByUsers(
+            @Param("gid") String gid,
+            @Param("fullShortUrl") String fullShortUrl,
+            @Param("startDate") String startDate,
+            @Param("endDate") String endDate,
+            @Param("userAccessRecordList") List<String> userAccessRecordList);
 }

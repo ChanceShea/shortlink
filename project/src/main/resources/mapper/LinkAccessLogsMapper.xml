@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shea.project.dao.mapper.LinkAccessLogsMapper">
 
+    <select id="selectUvTypeByUsers" resultType="map">
+        SELECT user,
+        CASE
+        WHEN COUNT(*) > 1 THEN 'oldUser'
+        ELSE 'newUser'
+        END AS uvType
+        FROM t_link_access_logs
+        WHERE del_flag = 0
+        AND gid = #{gid}
+        AND full_short_url = #{fullShortUrl}
+        AND create_time BETWEEN #{startDate} AND #{endDate}
+        AND user IN
+        <foreach collection="userAccessRecordList" item="user" open="(" separator="," close=")">
+            #{user}
+        </foreach>
+        GROUP BY user
+    </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.shea.admin.remote;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.http.Method;
@@ -11,6 +12,7 @@ import com.shea.admin.remote.dto.req.*;
 import com.shea.admin.remote.dto.resp.ShortLinkCreateRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkGroupCountRespDTO;
 import com.shea.admin.remote.dto.resp.ShortLinkPageRespDTO;
+import com.shea.admin.remote.dto.resp.ShortLinkStatsAccessRecordRespDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,5 +170,17 @@ public interface ShortLinkRemoteService {
     default void removeRecycleBin(RecycleBinRemoveReqDTO recycleBinRemoveReqDTO) {
         HttpUtil.post("http://127.0.0.1:8081/api/short-link/recycle-bin/v1/remove",
                 JSON.toJSONString(recycleBinRemoveReqDTO));
+    }
+
+    /**
+     * 获取指定时间内监控访问记录数据
+     *
+     * @param shortLinkStatsAccessRecordReqDTO 短链接访问记录请求参数
+     * @return 短链接访问记录数据
+     */
+    default Result<IPage<ShortLinkStatsAccessRecordRespDTO>> shortLinkAccessRecordStats(ShortLinkStatsAccessRecordReqDTO shortLinkStatsAccessRecordReqDTO) {
+        String result = HttpUtil.get("http://127.0.0.1:8081/api/short-link/v1/stats/access-record", BeanUtil.beanToMap(shortLinkStatsAccessRecordReqDTO));
+        return JSON.parseObject(result, new TypeReference<>() {
+        });
     }
 }

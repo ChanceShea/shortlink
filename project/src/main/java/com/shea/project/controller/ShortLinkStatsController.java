@@ -1,8 +1,11 @@
 package com.shea.project.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.shea.project.common.convention.result.Result;
 import com.shea.project.common.convention.result.Results;
+import com.shea.project.dto.req.ShortLinkStatsAccessRecordReqDTO;
 import com.shea.project.dto.req.ShortLinkStatsReqDTO;
+import com.shea.project.dto.resp.ShortLinkStatsAccessRecordRespDTO;
 import com.shea.project.dto.resp.ShortLinkStatsRespDTO;
 import com.shea.project.service.IShortLInkStatsService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +30,13 @@ public class ShortLinkStatsController {
     @GetMapping("/api/short-link/v1/stats")
     public Result<ShortLinkStatsRespDTO> getShortLinkStats(@RequestBody ShortLinkStatsReqDTO shortLinkStatsReqDTO) {
         return Results.success(shortLinkStatsService.oneShortLinkStats(shortLinkStatsReqDTO));
+    }
+
+    /**
+     * 获取短链接监控用户访问记录
+     */
+    @GetMapping("/api/short-link/v1/stats/access-record")
+    public Result<IPage<ShortLinkStatsAccessRecordRespDTO>> shortLinkAccessRecordStats(ShortLinkStatsAccessRecordReqDTO shortLinkStatsAccessRecordReqDTO) {
+        return Results.success(shortLinkStatsService.shortLinkAccessRecordStats(shortLinkStatsAccessRecordReqDTO));
     }
 }
